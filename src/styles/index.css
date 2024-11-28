@@ -1,3 +1,16 @@
 /* 
     General Styles
 */
+
+body {
+  background-image: url("https://st3.depositphotos.com/15225220/18932/v/450/depositphotos_189328220-stock-illustration-perfect-starry-night-sky-background.jpg");
+}
+
+.navbar {
+  border: 5px solid yellow;
+  padding-left: 15px;
+  padding-right: 15px;
+  background-color: black;
+  
+  
+}

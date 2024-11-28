@@ -1,0 +1,12 @@
+.card {
+  background-color: black;
+  color: darkorange;
+}
+
+.cardlist {
+  list-style-type: none;
+}
+
+.card-img-top {
+  object-fit: contain;
+}
