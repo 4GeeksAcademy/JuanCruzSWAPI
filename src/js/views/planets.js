@@ -1,19 +1,17 @@
 import React, { useContext, useEffect, useState } from "react";
 import rigoImage from "../../img/rigo-baby.jpg";
-import "../../styles/home.css";
+import "../../styles/planets.css";
 import { Context } from "../store/appContext";
-import { Link } from "react-router-dom";
 
-export const Home = () => {
+export const Planetas = () => {
   const { store, actions } = useContext(Context);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalContent, setModalContent] = useState(null);
 
   useEffect(() => {
-    actions.getPeople();
+    actions.getPlanet();
   }, []);
 
-  
   const openModal = (content) => {
     setModalContent(content);
     setIsModalOpen(true);
@@ -25,34 +23,36 @@ export const Home = () => {
   };
 
   return (
-    <div className="allCards">
-      {store.people.map((character) => {
+    <div className="allCardsP">
+      {store.planets.map((planet) => {
         return (
           <div
             className="card bg-dark"
-            key={character.uid}
+            key={planet.uid}
             style={{ width: "13rem" }}
           >
             <img
-              src={`https://starwars-visualguide.com/assets/img/characters/${character.uid}.jpg`}
+              src={`https://starwars-visualguide.com/assets/img/planets/${planet.uid}.jpg`}
               className="card-img-top"
               alt="..."
             />
             <div className="card-body">
-              <h5 className="card-title">{character.name}</h5>
+              <h5 className="card-title">{planet.name}</h5>
               <ul className="cardlist"></ul>
-              <Link to={`/character/${character.uid}`}>
-        <span className="navbar-brand mb-0 h1">Info</span>
-      </Link>
+              <a
+                href="#"
+                className="btn btn-primary"
+                onClick={() => openModal(planet)}
+              >
+                Get Info
+              </a>
             </div>
           </div>
         );
       })}
 
       {/* Modal */}
-      
-      {isModalOpen && modalContent && (
-        
+      {isModalOpen && (
         <div
           className="modal fade show"
           style={{ display: "block" }}
@@ -65,7 +65,7 @@ export const Home = () => {
             <div className="modal-content">
               <div className="modal-header">
                 <h5 className="modal-title" id="exampleModalLabel">
-                  {modalContent.name}
+                  {modalContent ? modalContent.name : ""}
                 </h5>
                 <button
                   type="button"
@@ -77,7 +77,8 @@ export const Home = () => {
                 </button>
               </div>
               <div className="modal-body">
-              {/* RELLENAR CON DATOS PERSON*/}
+                {/* Aquí puedes agregar más detalles sobre el personaje o planeta */}
+                <p>{modalContent ? modalContent.description : ""}</p>
               </div>
               <div className="modal-footer">
                 <button
@@ -94,7 +95,6 @@ export const Home = () => {
             </div>
           </div>
         </div>
-        
       )}
     </div>
   );
