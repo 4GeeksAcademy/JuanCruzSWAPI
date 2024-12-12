@@ -25,6 +25,7 @@ export const Home = () => {
   };
 
   return (
+    <div className="allCards-wrapper">
     <div className="allCards">
       {store.people.map((character) => {
         return (
@@ -46,56 +47,13 @@ export const Home = () => {
       </Link>
             </div>
           </div>
-        );
+          
+          );
       })}
 
-      {/* Modal */}
       
-      {isModalOpen && modalContent && (
-        
-        <div
-          className="modal fade show"
-          style={{ display: "block" }}
-          tabIndex="-1"
-          role="dialog"
-          aria-labelledby="exampleModalLabel"
-          aria-hidden="true"
-        >
-          <div className="modal-dialog" role="document">
-            <div className="modal-content">
-              <div className="modal-header">
-                <h5 className="modal-title" id="exampleModalLabel">
-                  {modalContent.name}
-                </h5>
-                <button
-                  type="button"
-                  className="close"
-                  onClick={closeModal}
-                  aria-label="Close"
-                >
-                  <span aria-hidden="true">&times;</span>
-                </button>
-              </div>
-              <div className="modal-body">
-              {/* RELLENAR CON DATOS PERSON*/}
-              </div>
-              <div className="modal-footer">
-                <button
-                  type="button"
-                  className="btn btn-secondary"
-                  onClick={closeModal}
-                >
-                  Close
-                </button>
-                <button type="button" className="btn btn-primary">
-                  Add Favoritos
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-        
-      )}
+      
     </div>
-  );
+    </div>);
+
 };

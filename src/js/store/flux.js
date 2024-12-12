@@ -7,7 +7,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 
       person: null,
 
-      
+      planet: null,
 
       demo: [
         {
@@ -61,6 +61,26 @@ const getState = ({ getStore, getActions, setStore }) => {
             console.log(error);
           });
       },
+      getPlanetInd: (id) => {
+        fetch(`https://www.swapi.tech/api/planets/${id}`, {
+          method: "GET",
+
+          headers: {
+            "Content-Type": "application/json",
+          },
+        })
+          .then((resp) => {
+            return resp.json();
+          })
+          .then((data) => {
+            setStore({ planet: data.result });
+            console.log(data);
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+      },
+
       getPerson: (id) => {
         fetch(`https://www.swapi.tech/api/people/${id}`, {
           method: "GET",

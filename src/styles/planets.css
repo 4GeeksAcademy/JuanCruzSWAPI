@@ -3,15 +3,6 @@
 
 
 
-.allCardsP{
-    display: flex;
-    justify-content: center;
-    justify-content: space-between;
-    padding-left: 100px;
-    padding-right: 100px;
-    padding-top: 50px;
-      
-    }
     
     .card {
       background-color: black;

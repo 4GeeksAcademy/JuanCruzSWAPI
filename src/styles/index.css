@@ -3,7 +3,15 @@
 */
 
 body {
+  
   background-image: url("https://st3.depositphotos.com/15225220/18932/v/450/depositphotos_189328220-stock-illustration-perfect-starry-night-sky-background.jpg");
+  height: 100%;  /* Asegura que el cuerpo y el HTML ocupen toda la pantalla */
+  margin: 0;     /* Elimina márgenes por defecto */
+  display: flex; /* Usamos flexbox para centrar los elementos */
+  flex-direction: column; /* Coloca los elementos en una columna */
+  justify-items: center;
+  
+  
 }
 
 .navbar {
@@ -11,6 +19,71 @@ body {
   padding-left: 15px;
   padding-right: 15px;
   background-color: black;
-  
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 10;
+  justify-content: flex-start;
+  gap: 10px;
   
 }
+.footer {
+  
+  
+  left: 0;
+  width: 100%;
+  background-color: #333;
+  color: white;
+  text-align: center;
+  padding: 10px 0;
+  
+  margin: bottom -1px;
+  
+}
+.card {
+    
+  margin: 0 auto; 
+}
+
+
+.allCards{
+  height: 100%;
+  width: 50%;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 20px;
+  padding-top: 150px;
+  padding-bottom: 200px;
+  
+
+  
+  }
+  
+  .card {
+    background-color: black;
+    color: darkorange;
+  }
+  
+  .cardlist {
+    list-style-type: none;
+  }
+  
+  .card-img-top {
+    
+    object-fit: contain;
+  }
+  .allCardsP{
+    height: 100%;
+  width: 50%;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 20px;
+  padding-top: 150px;
+  padding-bottom: 200px;
+      
+    }
+    .allCards-wrapper {
+      display: flex; /* Usamos flexbox para centrar el contenedor de tarjetas */
+      justify-content: center; /* Centra el contenido horizontalmente */
+      width: 100%;
+    }

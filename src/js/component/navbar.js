@@ -5,7 +5,9 @@ export const Navbar = () => {
   return (
     <nav className="navbar navbar-light bg-dark mb-3 custom-navbar">
       <Link to="/">
-        <span className="navbar-brand mb-0 h1">Inicio</span>
+      <button className="btn btn-warning">
+            Characters
+          </button>
       </Link>
       <div className="ml-auto">
         <Link to="/demo">
