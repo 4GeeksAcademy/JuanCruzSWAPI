@@ -1,45 +1,43 @@
 import React, { useContext, useEffect, useState } from "react";
-import rigoImage from "../../img/rigo-baby.jpg";
 import "../../styles/home.css";
 import { Context } from "../store/appContext";
 import { Link } from "react-router-dom";
-import babyYodaImage from "../../img/baby.yoda.jpg";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faStar as solidStar } from "@fortawesome/free-solid-svg-icons";
+import { faStar as regularStar } from "@fortawesome/free-regular-svg-icons";
 
 export const Home = () => {
   const { store, actions } = useContext(Context);
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [modalContent, setModalContent] = useState(null);
+  const [favorites, setFavorites] = useState({}); 
 
   useEffect(() => {
     actions.getPeople();
   }, []);
 
-  const openModal = (content) => {
-    setModalContent(content);
-    setIsModalOpen(true);
-  };
-
-  const closeModal = () => {
-    setIsModalOpen(false);
-    setModalContent(null);
+  
+  const toggleFavorite = (characterId) => {
+    setFavorites((prevFavorites) => ({
+      ...prevFavorites,
+      [characterId]: !prevFavorites[characterId], 
+    }));
   };
 
   return (
     <div className="allCards-wrapper">
       <div className="allCards">
         {store.people.map((character) => {
+          const isFavorite = favorites[character.uid] || false; 
+
           return (
             <div
-              className="card bg-dark"
+              className="card bg-dark position-relative"
               key={character.uid}
               style={{ width: "13rem" }}
             >
               <img
-                //src={`https://starwars-visualguide.com/assets/img/characters/${character.uid}.jpg`}
-                //src={babyYodaImage}
-                src= {`https://raw.githubusercontent.com/tbone849/star-wars-guide/refs/heads/master/build/assets/img/characters/${character.uid}.jpg`}
+                src={`https://raw.githubusercontent.com/tbone849/star-wars-guide/refs/heads/master/build/assets/img/characters/${character.uid}.jpg`}
                 className="card-img-top"
-                alt="..."
+                alt={character.name}
               />
               <div className="card-body">
                 <h5 className="card-title">{character.name}</h5>
@@ -48,6 +46,13 @@ export const Home = () => {
                   <span className="navbar-brand mb-0 h1">Info</span>
                 </Link>
               </div>
+
+            
+              <FontAwesomeIcon
+                icon={isFavorite ? solidStar : regularStar}
+                className="favorite-icon"
+                onClick={() => toggleFavorite(character.uid)}
+              />
             </div>
           );
         })}
