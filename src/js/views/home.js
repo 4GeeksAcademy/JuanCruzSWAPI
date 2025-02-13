@@ -36,7 +36,8 @@ export const Home = () => {
             >
               <img
                 //src={`https://starwars-visualguide.com/assets/img/characters/${character.uid}.jpg`}
-                src={babyYodaImage}
+                //src={babyYodaImage}
+                src= {`https://raw.githubusercontent.com/tbone849/star-wars-guide/refs/heads/master/build/assets/img/characters/${character.uid}.jpg`}
                 className="card-img-top"
                 alt="..."
               />

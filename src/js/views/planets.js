@@ -13,33 +13,32 @@ export const Planetas = () => {
     actions.getPlanet();
   }, []);
 
-  
-
   return (
     <div className="allCards-wrapper">
-    <div className="allCardsP">
-      {store.planets.map((planet) => {
-        return (
-          <div
-            className="card bg-dark"
-            key={planet.uid}
-            style={{ width: "13rem" }}
-          >
-            <img
-              src={`https://starwars-visualguide.com/assets/img/planets/${planet.uid}.jpg`}
-              className="card-img-top"
-              alt="..."
-            />
-            <div className="card-body">
-              <h5 className="card-title">{planet.name}</h5>
-              <ul className="cardlist"></ul>
-              <Link to={`/planet/${planet.uid}`}>
-                <span className="navbar-brand mb-0 h1">Info</span>
-              </Link>
+      <div className="allCardsP">
+        {store.planets.map((planet) => {
+          return (
+            <div
+              className="card bg-dark"
+              key={planet.uid}
+              style={{ width: "13rem" }}
+            >
+              <img
+                src={`https://starwars-visualguide.com/assets/img/planets/${planet.uid}.jpg`}
+                className="card-img-top"
+                alt="..."
+              />
+              <div className="card-body">
+                <h5 className="card-title">{planet.name}</h5>
+                <ul className="cardlist"></ul>
+                <Link to={`/planet/${planet.uid}`}>
+                  <span className="navbar-brand mb-0 h1">Info</span>
+                </Link>
+              </div>
             </div>
-          </div>
-        );
-      })}
+          );
+        })}
+      </div>
     </div>
-    </div>);
+  );
 };

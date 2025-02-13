@@ -1,6 +1,7 @@
 import { Link, useParams } from "react-router-dom";
 import React, { useContext, useEffect, useState } from "react";
 import { Context } from "../store/appContext";
+import planetImg from "../../img/planet-img.jpg"
 
 export const Planet = () => {
   const params = useParams();
@@ -20,7 +21,8 @@ export const Planet = () => {
         <>
           <div className="card mb-3 col-5">
             <img
-              src={`https://starwars-visualguide.com/assets/img/planets/${planeta.uid}.jpg`}
+              //src={`https://starwars-visualguide.com/assets/img/planets/${planeta.uid}.jpg`}
+              src={planetImg}
               className="card-img-top"
               alt="..."
             />
@@ -33,25 +35,22 @@ export const Planet = () => {
                 </li>
                 <li>
                   <strong>Population: {planeta.properties.population}</strong>{" "}
-                  {} People
+                  
                 </li>
                 <li>
-                  <strong>Hair Color:</strong> {}
+                  <strong>Climate: {planeta.properties.climate}</strong> {}
                 </li>
                 <li>
-                  <strong>Skin Color:</strong> {}
+                  <strong>Gravity: {planeta.properties.gravity}</strong> {}
                 </li>
                 <li>
-                  <strong>Eye Color:</strong> {}
+                  <strong>Rotation Period: {planeta.properties.rotation_period}</strong> 
                 </li>
                 <li>
-                  <strong>Birth Year:</strong> {}
+                  <strong>Terrain: {planeta.properties.terrain}</strong> {}
                 </li>
                 <li>
-                  <strong>Gender:</strong> {}
-                </li>
-                <li>
-                  <strong>Description:</strong>
+                  <strong>Description: {planeta.description}</strong>
                   {}
                 </li>
               </ul>
