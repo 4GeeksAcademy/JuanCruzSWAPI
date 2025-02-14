@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect } from "react";
 import "../../styles/planets.css";
 import { Context } from "../store/appContext";
 import { Link } from "react-router-dom";
@@ -9,25 +9,16 @@ import { faStar as regularStar } from "@fortawesome/free-regular-svg-icons";
 
 export const Planetas = () => {
   const { store, actions } = useContext(Context);
-  const [favorites, setFavorites] = useState([]);
 
   useEffect(() => {
     actions.getPlanet();
   }, []);
 
-  const toggleFavorite = (planet) => {
-    if (favorites.includes(planet.uid)) {
-      setFavorites(favorites.filter((fav) => fav !== planet.uid));
-    } else {
-      setFavorites([...favorites, planet.uid]);
-    }
-  };
-
   return (
     <div className="allCards-wrapper">
       <div className="allCardsP">
         {store.planets.map((planet) => {
-          const isFavorite = favorites.includes(planet.uid);
+          const isFavorite = store.favorites.some((fav) => fav.uid === planet.uid);
 
           return (
             <div
@@ -46,7 +37,7 @@ export const Planetas = () => {
                 {/* Icono de favorito en la esquina inferior derecha */}
                 <button
                   className="btn position-absolute bottom-0 end-0 m-2"
-                  onClick={() => toggleFavorite(planet)}
+                  onClick={() => actions.toggleFavorite(planet)}
                 >
                   <FontAwesomeIcon
                     icon={isFavorite ? solidStar : regularStar}
