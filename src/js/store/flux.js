@@ -5,28 +5,11 @@ const getState = ({ getStore, getActions, setStore }) => {
       planets: [],
       person: null,
       planet: null,
-      favorites: [], // Nuevo estado para favoritos
-      demo: [
-        {
-          title: "FIRST",
-          background: "white",
-          initial: "white",
-        },
-        {
-          title: "SECOND",
-          background: "white",
-          initial: "white",
-        },
-      ],
+      favorites: [], // Almacena favoritos en formato [{ type: "character", uid: "1" }, { type: "planet", uid: "2" }]
     },
     actions: {
       getPeople: () => {
-        fetch("https://www.swapi.tech/api/people/", {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-          },
-        })
+        fetch("https://www.swapi.tech/api/people/")
           .then((resp) => resp.json())
           .then((data) => {
             setStore({ people: data.results });
@@ -35,12 +18,7 @@ const getState = ({ getStore, getActions, setStore }) => {
       },
 
       getPlanet: () => {
-        fetch("https://www.swapi.tech/api/planets/", {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-          },
-        })
+        fetch("https://www.swapi.tech/api/planets/")
           .then((resp) => resp.json())
           .then((data) => {
             setStore({ planets: data.results });
@@ -49,12 +27,7 @@ const getState = ({ getStore, getActions, setStore }) => {
       },
 
       getPlanetInd: (id) => {
-        fetch(`https://www.swapi.tech/api/planets/${id}`, {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-          },
-        })
+        fetch(`https://www.swapi.tech/api/planets/${id}`)
           .then((resp) => resp.json())
           .then((data) => {
             setStore({ planet: data.result });
@@ -63,12 +36,7 @@ const getState = ({ getStore, getActions, setStore }) => {
       },
 
       getPerson: (id) => {
-        fetch(`https://www.swapi.tech/api/people/${id}`, {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-          },
-        })
+        fetch(`https://www.swapi.tech/api/people/${id}`)
           .then((resp) => resp.json())
           .then((data) => {
             setStore({ person: data.result });
@@ -76,37 +44,31 @@ const getState = ({ getStore, getActions, setStore }) => {
           .catch((error) => console.log(error));
       },
 
-      // Agregar o quitar un favorito
-      toggleFavorite: (item) => {
+      // Agregar o quitar un favorito diferenciando entre personajes y planetas
+      toggleFavorite: (type, item) => {
         const store = getStore();
-        const isFavorite = store.favorites.some((fav) => fav.uid === item.uid);
+        const favoriteKey = { type, uid: item.uid };
+        const isFavorite = store.favorites.some(
+          (fav) => fav.type === type && fav.uid === item.uid
+        );
 
         if (isFavorite) {
           // Si ya es favorito, lo eliminamos
-          setStore({ favorites: store.favorites.filter((fav) => fav.uid !== item.uid) });
+          setStore({
+            favorites: store.favorites.filter(
+              (fav) => !(fav.type === type && fav.uid === item.uid)
+            ),
+          });
         } else {
           // Si no es favorito, lo agregamos
-          setStore({ favorites: [...store.favorites, item] });
+          setStore({ favorites: [...store.favorites, favoriteKey] });
         }
       },
 
-      exampleFunction: () => {
-        getActions().changeColor(0, "green");
-      },
-
-      loadSomeData: () => {
-        // fetch().then().then(data => setStore({ "foo": data.bar }))
-      },
-
-      changeColor: (index, color) => {
+      // Verifica si un elemento es favorito
+      isFavorite: (type, uid) => {
         const store = getStore();
-
-        const demo = store.demo.map((elm, i) => {
-          if (i === index) elm.background = color;
-          return elm;
-        });
-
-        setStore({ demo: demo });
+        return store.favorites.some((fav) => fav.type === type && fav.uid === uid);
       },
     },
   };

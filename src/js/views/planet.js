@@ -16,7 +16,7 @@ export const Planet = () => {
 
   return (
     <div style={{ color: "orange" }}>
-      {/* Muestra el nombre del planeta */}
+      
       {planeta ? (
         <>
           <div className="card mb-3 col-5">
@@ -61,7 +61,7 @@ export const Planet = () => {
           </div>
         </>
       ) : (
-        <p>Loading...</p> // Muestra un mensaje mientras se cargan los datos
+        <p>Loading...</p> // Mensaje de carga
       )}
     </div>
   );

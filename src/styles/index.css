@@ -1,14 +1,12 @@
-/* 
-    General Styles
-*/
+
 
 body {
   
   background-image: url("https://st3.depositphotos.com/15225220/18932/v/450/depositphotos_189328220-stock-illustration-perfect-starry-night-sky-background.jpg");
-  height: 100%;  /* Asegura que el cuerpo y el HTML ocupen toda la pantalla */
-  margin: 0;     /* Elimina márgenes por defecto */
-  display: flex; /* Usamos flexbox para centrar los elementos */
-  flex-direction: column; /* Coloca los elementos en una columna */
+  height: 100%;  
+  margin: 0;     
+  display: flex; 
+  flex-direction: column; 
   justify-items: center;
   
   
@@ -83,7 +81,7 @@ body {
       
     }
     .allCards-wrapper {
-      display: flex; /* Usamos flexbox para centrar el contenedor de tarjetas */
-      justify-content: center; /* Centra el contenido horizontalmente */
+      display: flex; 
+      justify-content: center; 
       width: 100%;
     }

@@ -3,9 +3,8 @@ import "../../styles/demo.css";
 import { Context } from "../store/appContext";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faStar as solidStar } from "@fortawesome/free-solid-svg-icons";
-import { faStar as regularStar } from "@fortawesome/free-regular-svg-icons";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
+import planetImg from "../../img/planet-img.jpg";
 
 export const Demo = () => {
   const { store, actions } = useContext(Context);
@@ -18,13 +17,17 @@ export const Demo = () => {
           store.favorites.map((item) => {
             return (
               <div className="card bg-dark" key={item.uid} style={{ width: "13rem" }}>
+               
                 <img
-                  src={`https://raw.githubusercontent.com/tbone849/star-wars-guide/refs/heads/master/build/assets/img/characters/${item.uid}.jpg`}
+                  src={item.type === "character"
+                    ? `https://raw.githubusercontent.com/tbone849/star-wars-guide/refs/heads/master/build/assets/img/characters/${item.uid}.jpg`
+                    : planetImg
+                  }
                   className="card-img-top"
-                  alt="..."
+                  alt={item.name}
                 />
                 <div className="card-body">
-                  <h5 className="card-title">{item.name}</h5>
+                  <h5 className="card-title">{item.name || "Nombre no disponible"}</h5>
                   <ul className="cardlist"></ul>
                   <Link to={`/${item.type}/${item.uid}`}>
                     <span className="navbar-brand mb-0 h1">Info</span>

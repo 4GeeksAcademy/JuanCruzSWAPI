@@ -18,7 +18,9 @@ export const Planetas = () => {
     <div className="allCards-wrapper">
       <div className="allCardsP">
         {store.planets.map((planet) => {
-          const isFavorite = store.favorites.some((fav) => fav.uid === planet.uid);
+          const isFavorite = store.favorites.some(
+            (fav) => fav.type === "planet" && fav.uid === planet.uid
+          );
 
           return (
             <div
@@ -26,7 +28,7 @@ export const Planetas = () => {
               key={planet.uid}
               style={{ width: "13rem" }}
             >
-              <img src={planetImg} className="card-img-top" alt="..." />
+              <img src={planetImg} className="card-img-top" alt={planet.name} />
               <div className="card-body">
                 <h5 className="card-title">{planet.name}</h5>
                 <ul className="cardlist"></ul>
@@ -34,16 +36,13 @@ export const Planetas = () => {
                   <span className="navbar-brand mb-0 h1">Info</span>
                 </Link>
 
-                {/* Icono de favorito en la esquina inferior derecha */}
-                <button
-                  className="btn position-absolute bottom-0 end-0 m-2"
-                  onClick={() => actions.toggleFavorite(planet)}
-                >
-                  <FontAwesomeIcon
-                    icon={isFavorite ? solidStar : regularStar}
-                    className="text-warning"
-                  />
-                </button>
+               
+                <FontAwesomeIcon
+                  icon={isFavorite ? solidStar : regularStar}
+                  className="favorite-icon"
+                  onClick={() => actions.toggleFavorite("planet", planet)}
+                  style={{ color: isFavorite ? "darkorange" : "white", cursor: "pointer" }}
+                />
               </div>
             </div>
           );

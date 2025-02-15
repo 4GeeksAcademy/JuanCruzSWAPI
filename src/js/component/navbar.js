@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import { Context } from "../store/appContext";
 
@@ -6,7 +6,9 @@ export const Navbar = () => {
   const { store } = useContext(Context);
   const [searchTerm, setSearchTerm] = useState("");
   const [filteredResults, setFilteredResults] = useState([]);
+  const searchContainerRef = useRef(null);
 
+  
   const handleSearch = (e) => {
     const value = e.target.value.toLowerCase();
     setSearchTerm(value);
@@ -16,12 +18,27 @@ export const Navbar = () => {
       return;
     }
 
-    const results = [...store.people, ...store.planets].filter((item) =>
-      item.name.toLowerCase().includes(value)
-    );
+    const results = [
+      ...store.people.map((person) => ({ ...person, type: "character" })), 
+      ...store.planets.map((planet) => ({ ...planet, type: "planet" })) 
+    ].filter((item) => item.name.toLowerCase().includes(value));
 
     setFilteredResults(results);
   };
+
+  
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (searchContainerRef.current && !searchContainerRef.current.contains(event.target)) {
+        setFilteredResults([]);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   return (
     <nav className="navbar navbar-light bg-dark mb-3 custom-navbar">
@@ -39,8 +56,8 @@ export const Navbar = () => {
         </Link>
       </div>
 
-      {/* Barra de búsqueda con autocompletar */}
-      <div className="search-container position-relative">
+      
+      <div className="search-container position-relative" ref={searchContainerRef}>
         <input
           className="form-control me-2"
           type="search"
@@ -50,17 +67,17 @@ export const Navbar = () => {
           onChange={handleSearch}
         />
 
-        {/* Resultados de autocompletar */}
+        
         {filteredResults.length > 0 && (
-          <ul className="autocomplete-results list-group position-absolute">
+          <ul className="autocomplete-results list-group position-absolute w-100">
             {filteredResults.map((item, index) => (
               <Link
-                to={item.uid ? `/character/${item.uid}` : `/planet/${item.uid}`}
+                to={`/${item.type}/${item.uid}`}
                 key={index}
                 className="list-group-item list-group-item-action"
                 onClick={() => setSearchTerm("")} 
               >
-                {item.name}
+                {item.name} {item.type === "character" ? "🧑‍🚀" : "🪐"}
               </Link>
             ))}
           </ul>

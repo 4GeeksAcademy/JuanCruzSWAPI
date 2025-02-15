@@ -17,7 +17,9 @@ export const Home = () => {
     <div className="allCards-wrapper">
       <div className="allCards">
         {store.people.map((character) => {
-          const isFavorite = store.favorites.some((fav) => fav.uid === character.uid);
+          const isFavorite = store.favorites.some(
+            (fav) => fav.type === "character" && fav.uid === character.uid
+          );
 
           return (
             <div className="card bg-dark position-relative" key={character.uid} style={{ width: "13rem" }}>
@@ -38,7 +40,8 @@ export const Home = () => {
               <FontAwesomeIcon
                 icon={isFavorite ? solidStar : regularStar}
                 className="favorite-icon"
-                onClick={() => actions.toggleFavorite({ uid: character.uid, name: character.name, type: "character" })}
+                onClick={() => actions.toggleFavorite("character", character)}
+                style={{ color: isFavorite ? "yellow" : "white", cursor: "pointer" }}
               />
             </div>
           );
