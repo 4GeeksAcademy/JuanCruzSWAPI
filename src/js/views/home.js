@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect } from "react";
 import "../../styles/home.css";
 import { Context } from "../store/appContext";
 import { Link } from "react-router-dom";
@@ -8,32 +8,19 @@ import { faStar as regularStar } from "@fortawesome/free-regular-svg-icons";
 
 export const Home = () => {
   const { store, actions } = useContext(Context);
-  const [favorites, setFavorites] = useState({}); 
 
   useEffect(() => {
     actions.getPeople();
   }, []);
 
-  
-  const toggleFavorite = (characterId) => {
-    setFavorites((prevFavorites) => ({
-      ...prevFavorites,
-      [characterId]: !prevFavorites[characterId], 
-    }));
-  };
-
   return (
     <div className="allCards-wrapper">
       <div className="allCards">
         {store.people.map((character) => {
-          const isFavorite = favorites[character.uid] || false; 
+          const isFavorite = store.favorites.some((fav) => fav.uid === character.uid);
 
           return (
-            <div
-              className="card bg-dark position-relative"
-              key={character.uid}
-              style={{ width: "13rem" }}
-            >
+            <div className="card bg-dark position-relative" key={character.uid} style={{ width: "13rem" }}>
               <img
                 src={`https://raw.githubusercontent.com/tbone849/star-wars-guide/refs/heads/master/build/assets/img/characters/${character.uid}.jpg`}
                 className="card-img-top"
@@ -47,11 +34,11 @@ export const Home = () => {
                 </Link>
               </div>
 
-            
+              {/* Botón para agregar o quitar de favoritos */}
               <FontAwesomeIcon
                 icon={isFavorite ? solidStar : regularStar}
                 className="favorite-icon"
-                onClick={() => toggleFavorite(character.uid)}
+                onClick={() => actions.toggleFavorite({ uid: character.uid, name: character.name, type: "character" })}
               />
             </div>
           );

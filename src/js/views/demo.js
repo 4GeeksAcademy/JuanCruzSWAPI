@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar as solidStar } from "@fortawesome/free-solid-svg-icons";
 import { faStar as regularStar } from "@fortawesome/free-regular-svg-icons";
+import { faTrash } from "@fortawesome/free-solid-svg-icons";
 
 export const Demo = () => {
   const { store, actions } = useContext(Context);
@@ -29,7 +30,7 @@ export const Demo = () => {
                     <span className="navbar-brand mb-0 h1">Info</span>
                   </Link>
                   <button className="fav-button" onClick={() => actions.toggleFavorite(item)}>
-                    <FontAwesomeIcon icon={solidStar} className="text-warning" />
+                    <FontAwesomeIcon icon={faTrash} className="text-warning" />
                   </button>
                 </div>
               </div>
