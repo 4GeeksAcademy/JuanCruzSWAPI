@@ -5,7 +5,7 @@ const getState = ({ getStore, getActions, setStore }) => {
       planets: [],
       person: null,
       planet: null,
-      favorites: [], // Almacena favoritos en formato [{ type: "character", uid: "1" }, { type: "planet", uid: "2" }]
+      favorites: [], 
     },
     actions: {
       getPeople: () => {
@@ -44,7 +44,7 @@ const getState = ({ getStore, getActions, setStore }) => {
           .catch((error) => console.log(error));
       },
 
-      // Agregar o quitar un favorito diferenciando entre personajes y planetas
+      // agrega a favoritos segun sea planeta o personaje
       toggleFavorite: (type, item) => {
         const store = getStore();
         const favoriteKey = { type, uid: item.uid };
@@ -53,14 +53,14 @@ const getState = ({ getStore, getActions, setStore }) => {
         );
 
         if (isFavorite) {
-          // Si ya es favorito, lo eliminamos
+          // Si ya es favorito, se elimina
           setStore({
             favorites: store.favorites.filter(
               (fav) => !(fav.type === type && fav.uid === item.uid)
             ),
           });
         } else {
-          // Si no es favorito, lo agregamos
+          // Si no es favorito, se agrega
           setStore({ favorites: [...store.favorites, favoriteKey] });
         }
       },

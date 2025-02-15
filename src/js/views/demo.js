@@ -27,7 +27,7 @@ export const Demo = () => {
                   alt={item.name}
                 />
                 <div className="card-body">
-                  <h5 className="card-title">{item.name || "Nombre no disponible"}</h5>
+                  <h5 className="card-title">{item.name}</h5>
                   <ul className="cardlist"></ul>
                   <Link to={`/${item.type}/${item.uid}`}>
                     <span className="navbar-brand mb-0 h1">Info</span>
